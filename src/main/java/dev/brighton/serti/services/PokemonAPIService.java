@@ -38,4 +38,21 @@ public class PokemonAPIService {
             return Optional.empty();
         }
     }
+
+    public Optional<TypeDTO> getTypeById(Long id) {
+        try {
+            TypeDTO typeDTO = webClient.get()
+                    .uri(String.format("/type/%d", id))
+                    .retrieve()
+                    .onStatus(status -> status.is4xxClientError(), response ->
+                        response.createException().flatMap(Mono::error)
+                    )
+                    .bodyToMono(TypeDTO.class)
+                    .block();
+
+            return Optional.ofNullable(typeDTO);
+        } catch (WebClientResponseException e) {
+            return Optional.empty();
+        }
+    }
 }

@@ -10,6 +10,8 @@ public class PokemonDTO {
     @JsonProperty("id")
     private Long pokedexId;
 
+    private Long typeId;
+
     public PokemonDTO() {}
 
     public PokemonDTO(Long id, String name, Long pokedexId) {

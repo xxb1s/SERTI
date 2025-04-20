@@ -19,6 +19,7 @@ public class PokemonService {
     @Autowired
     private PokemonRepository pokemonRepository;
     private PokemonAPIService pokemonAPIService;
+    private TypeService typeService;
 
     public List<PokemonDTO> listAll() {
         Iterable<Pokemon> pokemonIterable = pokemonRepository.findAll();
@@ -49,12 +50,16 @@ public class PokemonService {
         return pokemonList;
     }
 
-    public PokemonDTO searchAndSavePokemon(String pokemon) {
+    public void searchAndSavePokemon(String pokemon) {
         Optional<PokemonDTO> pokemonViaAPI = pokemonAPIService.getPokemonByPokedex(Long.parseLong(pokemon));
 
-        if (pokemonViaAPI.isPresent()) {
-
+        if (!pokemonViaAPI.isPresent()) {
+            //return new PokemonDTO();
         }
+
+        PokemonDTO pokemonDTO = pokemonViaAPI.get();
+
+
     }
 
     public PokemonDTO convertPokemonToDTO(Pokemon pokemon) {
